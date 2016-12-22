@@ -17,9 +17,12 @@ def translate_it(source_news, result_news, lang_in, lang_out):
         'text': text,
     }
     response = requests.get(url, params=params).json()
-    text = ' '.join( response.get('text', []))
+    text = ' '.join(response.get('text', []))
 
-    with open(result_news, 'w') as news_trans:
+    #  почему-то ошибка вылетает на  переводе с Испанского языка ?!
+    #  исправил поставивь кодировку utf-8 в файл для записи
+
+    with open(result_news, 'w', encoding='utf-8') as news_trans:
         news_trans.write(text)
 
     return text
@@ -29,7 +32,6 @@ def translate_it(source_news, result_news, lang_in, lang_out):
 #  de - немецкий
 #  fr - французкий
 
-# почему-то ошибка вылетает на  переводе с Испанского языка ?!
 a = translate_it('ES.txt', 'ES_RU.txt', 'es', 'ru')
 print(a)
 
